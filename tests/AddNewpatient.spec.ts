@@ -14,14 +14,10 @@ test("Verify New Patient Treatment Plan Creation and Order Confirmation ", async
   const browser = await chromium.launch({
     args: [ '--disable-site-isolation-trials', '--disable-web-security', '--allow-running-insecure-content'],
     headless: false,
-    
-    
   });
 
   const context = await browser.newContext({
     acceptDownloads: true,
-    
-   
   });
 
   const page = await context.newPage();
