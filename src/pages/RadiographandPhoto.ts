@@ -52,7 +52,7 @@ export class RadiographandPhoto implements Radiographandphotoint
     }
     async moveNext(): Promise<void> {
         await  this.next.click();
-        await this.page.waitForTimeout(870000);
+        await this.page.waitForTimeout(800000);
     }
     async clickCancel(): Promise<void> {
         throw new Error("Method not implemented.");
