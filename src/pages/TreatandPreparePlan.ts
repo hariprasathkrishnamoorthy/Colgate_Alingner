@@ -29,7 +29,7 @@ export class TreatandPreparePlan implements TreatandPreparePlanint
     async validateResultModal(): Promise<void>  
     {
     
-    await this.page.waitForTimeout(900000);
+    //await this.page.waitForTimeout(900000);
     await this.page.waitForSelector(this.ResultBackdropModal, { timeout: 900000});
     console.log(`Selector ${this.page.locator(this.ResultBackdropModal).isVisible()} has appeared.`)
     }
