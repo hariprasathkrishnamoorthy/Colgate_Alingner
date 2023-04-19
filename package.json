@@ -1,9 +1,18 @@
 {
-  "dependencies": {
-    "playwright": "^1.32.3"
-  },
+  
   "devDependencies": {
-    "@playwright/test": "^1.32.2"
+  
+    
+  "@playwright/test": "^1.32.3"
+  
   },
-  "scripts": {}
+  
+  "scripts": {},
+  
+  "dependencies": {
+  
+    
+  "playwright": "^1.32.3"
+  
+  }
 }
