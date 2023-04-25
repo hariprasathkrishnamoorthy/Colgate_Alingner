@@ -38,7 +38,7 @@ export class RadiographandPhoto implements Radiographandphotoint
         'images/Xray1.jpg'
       ]);
 
-
+     await this.page.waitForTimeout(30000);
         
     }
     async uploadFullFace(): Promise<void> {
@@ -52,7 +52,7 @@ export class RadiographandPhoto implements Radiographandphotoint
     }
     async moveNext(): Promise<void> {
         await  this.next.click();
-        await this.page.waitForTimeout(10000);
+        
         
     }
     async clickCancel(): Promise<void> {

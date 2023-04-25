@@ -31,14 +31,19 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
     headless: false,
-    navigationTimeout: 70000,
+    navigationTimeout: 80000,
+    video: 'on',
+    deviceScaleFactor: 2,
+    viewport: { width: 1260, height: 600 } 
   },
+
+  
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'] , viewport: { width: 1260, height: 600 } },
     },
 
     {

@@ -35,5 +35,13 @@ export class LoginPage implements Loginpageint
         await this.loginbutton.click();
     }
     
+    async enterEmailPassWordandLogin(emailval: string,pwd: string): Promise<void> 
+    {
+        await this.enterEmail(emailval);
+        await this.enterPassWord(pwd);
+        await this.clickLogin();
+
+    }
+    
     
 }

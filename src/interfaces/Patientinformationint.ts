@@ -14,6 +14,7 @@ export interface Patientinformationint
     moveback():void;
     moveNext():void;
     clickCancel():void;
+    enterPatientinformation(fname:String,lname :String,mm:String, dd:String, yy:String,emailval: string,phnumber ? :String):void;
     
 
 

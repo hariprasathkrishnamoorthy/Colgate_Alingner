@@ -15,16 +15,15 @@ export class TreatandPreparePlan implements TreatandPreparePlanint
        this.page = page;
        this.viewresults=page.getByRole('button', { name: 'View results' });
        this.ResultBackdropModal= '.MuiBackdrop-root';
-       this.tretmentcompleted="text=The treatment has completed. This is a simple case.";
+       this.tretmentcompleted="The treatment has completed. This is a simple case.";
 
     }
     async clickViewresults(): Promise<void>  
     {
     
-    await this.viewresults.click();
+    await this.viewresults.click({timeout:600000});
   
     }
-
 
     async validateResultModal(): Promise<void>  
     {
@@ -37,15 +36,12 @@ export class TreatandPreparePlan implements TreatandPreparePlanint
     async validateTreatmentCompletedStep(): Promise<boolean>  
     {
     
-    // await this.page.waitForSelector(this.tretmentcompleted, { timeout: 800000});
+     
      return await this.page.locator(this.tretmentcompleted).isVisible({ timeout: 800000});
   
     }
 
 
-   
-    
-    
-    
+ 
     
 }

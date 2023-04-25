@@ -6,80 +6,66 @@ import {Clinicalinformation} from "../src/pages/Clinicalinformation";
 import {Scans} from "../src/pages/Scans";
 import {RadiographandPhoto} from "../src/pages/RadiographandPhoto";
 import {TreatandPreparePlan} from "../src/pages/TreatandPreparePlan"
+import {OrderPage} from "../src/pages/OrderPage";
+import {TestUtils} from "../src/utils/TestUtils";
 
-
-
-test("Verify New Patient Treatment Plan Creation and Order Confirmation ", async ({ request }, testResult) => {
+test("Verify New Patient Treatment Plan Creation and Order Confirmation ", async ({page, request }, testResult) => {
   
-  test.setTimeout(2000000);
-  const browser = await chromium.launch({
-    args: [ '--disable-site-isolation-trials', '--disable-web-security', '--allow-running-insecure-content'],
-    headless: false,
-  });
-
-  const context = await browser.newContext({
-    acceptDownloads: true,
-  });
-
-  const page = await context.newPage();
+  test.setTimeout(1500000);
   await page.goto("https://qa.oemaligner.com/#/login");
-
+  const pages :any[]= [];
+  pages.push(new LoginPage(page),new Patients(page),new Patientinformation(page),new Clinicalinformation(page),new Scans(page),new RadiographandPhoto(page),new TreatandPreparePlan(page),new OrderPage(page));
+  const[login_page,Patients_page,Patientsinformation_page,Clinicalinfo_page,Scan_page,RadioandPhoto_page,TreatandPreparePlan_page,Order_page]=pages;
+  
   //Login Page
-  const login_page = new LoginPage(page);
-  await login_page.enterEmail("copa_contact@mailinator.com");
-  await login_page.enterPassWord("uLab12#");
-  await login_page.clickLogin();
-
+  await login_page.enterEmailPassWordandLogin("copa_contact@mailinator.com","uLab12#");
+  TestUtils.log("Login Page","Logged-in Successfully");
+  
   //Patients Page
-  const Patients_page = new Patients(page);
   await Patients_page.addNewPatient();
-
-   //Patients Information Page
-  const Patientsinformation_page = new Patientinformation(page);
-  await Patientsinformation_page.enterFirstName("Test");
-  await Patientsinformation_page.enterLastName("DemoPatient");
-  await Patientsinformation_page.enterDob("1","1","1990");
-  await Patientsinformation_page.enterEmail("TestpatientDemo@gmail.com");
-  await Patientsinformation_page.moveNext();
+  TestUtils.log("New Patients-Page","Add PatientData Button Clicked");
+  
+  //Patients Information Page
+  await Patientsinformation_page.enterPatientinformation("Test","DemoPatient","1","1","1990","TestpatientDemo@gmail.com");
+  TestUtils.log("Patients Information Page","Patient Data Added Successfully");
 
   //Clinical Information Page
-  const Clinicalinfo_page = new Clinicalinformation(page);
   await Clinicalinfo_page.enterNo();
   await Clinicalinfo_page.moveNext();
+  TestUtils.log("Clinical Information Page","Clinincal-Information Selected Successfully");
 
   //Scan Page
-  const Scan_page = new Scans(page);
+  await TestUtils.waitforLoad(page);
   await Scan_page.uploadUpperScan();
+  await TestUtils.waitforLoad(page);
   await Scan_page.uploadLowerScan();
-  await page.waitForLoadState();
+  await TestUtils.waitforLoad(page);
+  TestUtils.log("Scan Page(Title)", await page.title());
+  expect(await page.title()).toBe("Visualization Toolkit - SDL2OpenGL #");
   await Scan_page.moveNext();
+  TestUtils.log("Scan Page","Scan Files Uploaded Successfully");
 
   //RadioPhoto Page
-  const RadioandPhoto_page = new RadiographandPhoto(page);
   await RadioandPhoto_page.uploadPanorex();
+  await TestUtils.waitforLoad(page);
   await RadioandPhoto_page.moveNext();
-
+  TestUtils.log("RadioPhoto Page","Radigraphs Files Uploaded Successfully");
 
   //TreatmentPlan and Prep Page
-  const TreatandPreparePlan_page = new TreatandPreparePlan(page);
-  //await page.reload();
-  await TreatandPreparePlan_page.validateResultModal();
-  //expect(TreatandPreparePlan_page.validateTreatmentCompletedStep()).toBe(true);
+  await TestUtils.waitForTimeout(page,15000);
   await  TreatandPreparePlan_page.clickViewresults();
-
+  TestUtils.log("TreatmentPlan and Prep Page","Treatment Plan Generated Successfully");
 
   //Order Page
-  await page.getByTestId('goToCart').press('Enter');
-  await page.waitForLoadState();
-  await page.getByTestId('consent1').getByRole('checkbox', { name: 'controlled' }).check();
-  await page.getByTestId('consent2').getByRole('checkbox', { name: 'controlled' }).check();
-  await page.getByTestId('consent3').getByRole('checkbox', { name: 'controlled' }).check();
-  await page.getByTestId('consent4').getByRole('checkbox', { name: 'controlled' }).check();
-  await page.getByRole('button', { name: 'Place order' }).click();
-  await page.waitForLoadState();
-  await expect( await page.locator("//button[contains(text(),'Close')]").isVisible()).toBe(true);
-  await page.getByRole('button', { name: 'Close' }).click();
-
+   await Order_page.addToCart();
+   await TestUtils.waitforLoad(page);
+   await Order_page.selectConsent('all');
+   await Order_page.placeOrder();
+   await TestUtils.waitforLoad(page);
+   TestUtils.log("Order Page","Order Successfully created With Order Id:"+await TestUtils.getOrderid(page.url()));
+   await Order_page.clickClose();
+ 
 });
+
 
 

@@ -28,47 +28,79 @@ export class Patientinformation implements Patientinformationint
        this.year= page.getByLabel('Year');
        this.email=  page.getByLabel('Email *');
        this.next= page.getByRole('button', { name: 'Next' });
+       this.termsandconditionscheckbox= page.getByLabel('Patient agrees to opt-in to SMS');
+       this.phonenumber= page.getByLabel('Cell phone *');
 
     }
-
-
     
-   async  enterFirstName(fname: string): Promise<void> {
+
+    async  enterFirstName(fname: string): Promise<void> 
+    {
        await this.firstname.fill(fname);
     }
-    async enterLastName(lname: string): Promise<void> {
-        await this.lastname.fill(lname); 
+    async enterLastName(lname: string): Promise<void> 
+    {
+       await this.lastname.fill(lname); 
     }
-    async enterDob(mm: string, dd: string, yy: string): Promise<void> {
-        await this.page.getByLabel('MM').click();
-        await this.month.fill(mm); 
-        await this.date.fill(dd);
-        await this.year.fill(yy);
+    async enterDob(mm: string, dd: string, yy: string): Promise<void> 
+    {
+       await this.page.getByLabel('MM').click();
+       await this.month.fill(mm); 
+       await this.date.fill(dd);
+       await this.year.fill(yy);
 
     }
 
-    async enterEmail(emailval: string): Promise<void> {
+    async enterEmail(emailval: string): Promise<void> 
+    {
         await this.email.fill(emailval);
     }
 
+    async enterPhonenumber(phnumber: string): Promise<void> 
+    {
+        await this.phonenumber.fill(phnumber);
+    }
 
-    async clickTCCheckBox(): Promise<void> {
+    async clickTCCheckBox(): Promise<void> 
+    {
+        await this.termsandconditionscheckbox.check();
+        
+    }
+
+    async moveback(): Promise<void> 
+    {
         throw new Error("Method not implemented.");
     }
-    async enterPhonenumber(phnumber: string): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    async moveback(): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    async moveNext(): Promise<void> {
+    async moveNext(): Promise<void> 
+    {
         await this.next.click();
-        //await this.next.press('Enter');
        
     }
-    async clickCancel(): Promise<void> {
+    async clickCancel(): Promise<void> 
+    {
         throw new Error("Method not implemented.");
     }
+
+
+    async enterPatientinformation(fname: string, lname: string, mm: string, dd: string, yy: string, emailval: string,phnumber ?: string):Promise<void>
+    {
+         await this.enterFirstName(fname);
+         await this.enterLastName(lname);
+         await this.enterDob(mm,dd,yy);
+         await this.enterEmail(emailval);
+         if(phnumber)
+         {
+             await this.enterPhonenumber(phnumber);
+             await this.clickTCCheckBox();
+             
+         }
+         await this.moveNext();
+         
+
+    }
+   
+    
+
    
     
 }
