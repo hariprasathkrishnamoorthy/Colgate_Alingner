@@ -3,7 +3,13 @@
   "devDependencies": {
   
     
-  "@playwright/test": "^1.32.3"
+  "@playwright/test": "^1.32.3",
+  
+    
+  "@types/gremlin": "^3.6.0",
+  
+    
+  "gremlins": "^2.0.0-beta4"
   
   },
   
@@ -13,6 +19,11 @@
   
     
   "@types/winston": "^2.4.4",
+  
+    
+  "chrome-launcher": "^0.15.2",
+  
+    
   
     
   "playwright": "^1.32.3",

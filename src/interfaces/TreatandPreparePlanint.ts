@@ -2,12 +2,10 @@ import { Locator, Page } from "playwright";
 
 
 
-export interface  TreatandPreparePlanint
-{
+export interface TreatandPreparePlanint {
 
     clickViewresults(): void;
-    validateResultModal():void;
-    validateTreatmentCompletedStep():Promise<boolean> ;
+    validateResultModal(): void;
+    validateTreatmentCompletedStep(): Promise<boolean>;
 
 }
-  

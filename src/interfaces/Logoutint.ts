@@ -2,9 +2,8 @@ import { Locator, Page } from "playwright";
 
 
 
-export interface Logoutint 
-{
-    
+export interface Logoutint {
+
 
     clickMyAccount(): void;
     clickChangePassword(): void;
@@ -12,4 +11,3 @@ export interface Logoutint
 
 
 }
-  

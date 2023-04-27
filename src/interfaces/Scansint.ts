@@ -2,16 +2,14 @@ import { Locator, Page } from "playwright";
 
 
 
-export interface Scansint 
-{
-   
+export interface Scansint {
+
 
     uploadUpperScan(): void;
     uploadLowerScan(): void;
-    
-    moveback():void;
-    moveNext():void;
-    clickCancel():void;
+
+    moveback(): void;
+    moveNext(): void;
+    clickCancel(): void;
 
 }
-  

@@ -1,4 +1,4 @@
-import { chromium, expect, test } from "@playwright/test";
+import {  expect, test } from "@playwright/test";
 import { LoginPage } from "../src/pages/LoginPage";
 import { Patients } from "../src/pages/Patients";
 import { Patientinformation } from "../src/pages/Patientinformation";
@@ -9,6 +9,8 @@ import { TreatandPreparePlan } from "../src/pages/TreatandPreparePlan"
 import { OrderPage } from "../src/pages/OrderPage";
 import { TestUtils } from "../src/utils/TestUtils";
 
+
+
 test("Verify New Patient Treatment Plan Creation and Order Confirmation ", async ({ page, request }, testResult) => {
 
   test.setTimeout(1500000);
@@ -18,7 +20,7 @@ test("Verify New Patient Treatment Plan Creation and Order Confirmation ", async
   const [login_page, Patients_page, Patientsinformation_page, Clinicalinfo_page, Scan_page, RadioandPhoto_page, TreatandPreparePlan_page, Order_page] = pages;
 
   //Login Page
-  await login_page.enterEmailPassWordandLogin("copa_contact@mailinator.com", "uLab12#");
+  await login_page.enterEmailPassWordandLogin("copa_contact@mailinator.com", "uLab123#");
   TestUtils.log("Login Page", "Logged-in Successfully");
 
   //Patients Page
